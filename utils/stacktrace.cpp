@@ -212,6 +212,8 @@ utils::find_core(const fs::path& program, const process::status& status,
     if (program.is_absolute()) {
         candidates.push_back(program.branch_path() /
             (program.leaf_name().substr(0, max_core_name_length) + ".core"));
+        candidates.push_back(program.branch_path() /
+            (F("core.%s") % status.dead_pid()));
     }
     candidates.push_back(work_directory / (F("core.%s") % status.dead_pid()));
     candidates.push_back(fs::path("/cores") /
