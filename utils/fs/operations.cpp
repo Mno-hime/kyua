@@ -54,6 +54,7 @@ extern "C" {
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <regex>
 #include <sstream>
 #include <string>
 
@@ -702,6 +703,8 @@ fs::rm_r(const fs::path& directory)
         if (fs::is_directory(entry)) {
             LD(F("Descending into %s") % entry);
             fs::rm_r(entry);
+        } else if (std::regex_match(iter->name, std::regex("core\\.[0-9]+"))) {
+            LD(F("Core file %s detected in work directory. Cleanup left to the user") % entry);
         } else {
             LD(F("Removing file %s") % entry);
             fs::unlink(entry);
