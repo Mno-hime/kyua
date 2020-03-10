@@ -705,7 +705,7 @@ fs::rm_r(const fs::path& directory)
         if (fs::is_directory(entry)) {
             LD(F("Descending into %s") % entry);
             fs::rm_r(entry);
-        } else if (iter->name.compare(0, 3, "core") == 0) {
+        } else if (iter->name.compare(0, 4, "core") == 0) {
             LD(F("Core file %s detected in work directory. Cleanup left to the user") % entry);
         } else {
             LD(F("Removing file %s") % entry);
